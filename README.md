@@ -65,7 +65,7 @@ az aks stop --name myAKSCluster --resource-group myResourceGroup --subscription 
 
 You can verify when your cluster is stopped by using the az aks show command and confirming the powerState shows as Stopped as on the below output:
 
-JSON
+```json
 
 {
 [...]
@@ -78,27 +78,25 @@ JSON
   "resourceGroup": "myResourceGroup",
 [...]
 }
+```
+
 If the provisioningState shows Stopping that means your cluster hasn't fully stopped yet.
 
- Important
+#### Important
 
 If you are using Pod Disruption Budgets the stop operation can take longer as the drain process will take more time to complete.
 
-Start an AKS Cluster
+## Start an AKS Cluster
 You can use the az aks start command to start a stopped AKS cluster's nodes and control plane. The cluster is restarted with the previous control plane state and number of agent nodes.
 The following example starts a cluster named myAKSCluster:
 
-Azure CLI
-
-Copy
-
-Try It
+```zhs
 az aks start --name myAKSCluster --resource-group myResourceGroup
 You can verify when your cluster has started by using the az aks show command and confirming the powerState shows Running as on the below output:
+```
 
-JSON
+```json
 
-Copy
 {
 [...]
   "nodeResourceGroup": "MC_myResourceGroup_myAKSCluster_westus2",
@@ -110,4 +108,6 @@ Copy
   "resourceGroup": "myResourceGroup",
 [...]
 }
+```
+
 If the provisioningState shows Starting that means your cluster hasn't fully started yet.
