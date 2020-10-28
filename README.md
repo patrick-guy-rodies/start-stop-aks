@@ -22,10 +22,16 @@ You also need the aks-preview Azure CLI extension version 0.4.64 or later. Insta
 
 
 ## Install the aks-preview extension
+
+```zhs
 az extension add --name aks-preview
+```
 
 ## Update the extension to make sure you have the latest version installed
+
+```zhs
 az extension update --name aks-preview
+```
 
 Register the StartStopPreview preview feature
 To use the start/stop cluster feature, you must enable the StartStopPreview feature flag on your subscription.
@@ -33,21 +39,30 @@ To use the start/stop cluster feature, you must enable the StartStopPreview feat
 Register the StartStopPreview feature flag by using the az feature register command, as shown in the following example:
 
 ## Register feature
+
+```zhs
 az feature register --namespace "Microsoft.ContainerService" --name "StartStopPreview" --subscription "MySubID"
+```
 
 It takes a few minutes for the status to show Registered. Verify the registration status by using the az feature list command:
 
+```zhs
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/StartStopPreview')].{Name:name,State:properties.state}" --subscription "MySubID"
+```
 
 When ready, refresh the registration of the Microsoft.ContainerService resource provider by using the az provider register command:
 
+```zhs
 az provider register --namespace Microsoft.ContainerService --subscription "MySubID"
+```
 
 ## Stop an AKS Cluster
 You can use the az aks stop command to stop a running AKS cluster's nodes and control plane. The following example stops a cluster named myAKSCluster:
 
-
+```zhs
 az aks stop --name myAKSCluster --resource-group myResourceGroup --subscription "MySubID"
+```
+
 You can verify when your cluster is stopped by using the az aks show command and confirming the powerState shows as Stopped as on the below output:
 
 JSON
