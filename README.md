@@ -1,21 +1,15 @@
 # start-stop-aks
 Start and Stop AKS cluster using Azure functionality
 Stop and Start an Azure Kubernetes Service (AKS) cluster (preview)
-09/24/2020
-4 minutes to read
+
  
 Your AKS workloads may not need to run continuously, for example a development cluster that is used only during business hours. This leads to times where your Azure Kubernetes Service (AKS) cluster might be idle, running no more than the system components. You can reduce the cluster footprint by scaling all the User node pools to 0, but your System pool is still required to run the system components while the cluster is running. To optimize your costs further during these periods, you can completely turn off (stop) your cluster. This action will stop your control plane and agent nodes altogether, allowing you to save on all the compute costs, while maintaining all your objects and cluster state stored for when you start it again. You can then pick up right where you left of after a weekend or to have your cluster running only while you run your batch jobs.
 
- Important
+ #### Important
 
-AKS preview features are available on a self-service, opt-in basis. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. AKS previews are partially covered by customer support on a best-effort basis. As such, these features aren't meant for production use. AKS preview features aren't available in Azure Government or Azure China 21Vianet clouds. For more information, see the following support articles:
+AKS preview features are available on a self-service, opt-in basis. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. AKS previews are partially covered by customer support on a best-effort basis. As such, these features aren't meant for production use. AKS preview features aren't available in Azure Government or Azure China 21Vianet clouds. 
 
-AKS support policies
-Azure support FAQ
-Before you begin
-This article assumes that you have an existing AKS cluster. If you need an AKS cluster, see the AKS quickstart using the Azure CLI or using the Azure portal.
-
-Limitations
+#### Limitations
 When using the cluster start/stop feature, the following restrictions apply:
 
 This feature is only supported for Virtual Machine Scale Sets backed clusters.
@@ -26,57 +20,38 @@ You can only start or delete a stopped AKS cluster. To perform any operation lik
 Install the aks-preview Azure CLI
 You also need the aks-preview Azure CLI extension version 0.4.64 or later. Install the aks-preview Azure CLI extension by using the az extension add command. Or install any available updates by using the az extension update command.
 
-Azure CLI
 
-Copy
-
-Try It
-# Install the aks-preview extension
+## Install the aks-preview extension
 az extension add --name aks-preview
 
-# Update the extension to make sure you have the latest version installed
+## Update the extension to make sure you have the latest version installed
 az extension update --name aks-preview
+
 Register the StartStopPreview preview feature
 To use the start/stop cluster feature, you must enable the StartStopPreview feature flag on your subscription.
 
 Register the StartStopPreview feature flag by using the az feature register command, as shown in the following example:
 
-Azure CLI
+## Register feature
+az feature register --namespace "Microsoft.ContainerService" --name "StartStopPreview" --subscription "MySubID"
 
-Copy
-
-Try It
-az feature register --namespace "Microsoft.ContainerService" --name "StartStopPreview"
 It takes a few minutes for the status to show Registered. Verify the registration status by using the az feature list command:
 
-Azure CLI
+az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/StartStopPreview')].{Name:name,State:properties.state}" --subscription "MySubID"
 
-Copy
-
-Try It
-az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/StartStopPreview')].{Name:name,State:properties.state}"
 When ready, refresh the registration of the Microsoft.ContainerService resource provider by using the az provider register command:
 
-Azure CLI
+az provider register --namespace Microsoft.ContainerService --subscription "MySubID"
 
-Copy
-
-Try It
-az provider register --namespace Microsoft.ContainerService
-Stop an AKS Cluster
+## Stop an AKS Cluster
 You can use the az aks stop command to stop a running AKS cluster's nodes and control plane. The following example stops a cluster named myAKSCluster:
 
-Azure CLI
 
-Copy
-
-Try It
-az aks stop --name myAKSCluster --resource-group myResourceGroup
+az aks stop --name myAKSCluster --resource-group myResourceGroup --subscription "MySubID"
 You can verify when your cluster is stopped by using the az aks show command and confirming the powerState shows as Stopped as on the below output:
 
 JSON
 
-Copy
 {
 [...]
   "nodeResourceGroup": "MC_myResourceGroup_myAKSCluster_westus2",
