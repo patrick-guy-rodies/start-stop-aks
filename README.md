@@ -23,13 +23,13 @@ You also need the aks-preview Azure CLI extension version 0.4.64 or later. Insta
 
 ## Install the aks-preview extension
 
-```zhs
+```zsh
 az extension add --name aks-preview
 ```
 
 ## Update the extension to make sure you have the latest version installed
 
-```zhs
+```zsh
 az extension update --name aks-preview
 ```
 
@@ -40,42 +40,42 @@ Register the StartStopPreview feature flag by using the az feature register comm
 
 ## Register feature
 
-```zhs
+```zsh
 az feature register --namespace "Microsoft.ContainerService" --name "StartStopPreview" --subscription "MySubID"
 ```
 
 It takes a few minutes for the status to show Registered. Verify the registration status by using the az feature list command:
 
-```zhs
+```zsh
 az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/StartStopPreview')].{Name:name,State:properties.state}" --subscription "MySubID"
 ```
 
 When ready, refresh the registration of the Microsoft.ContainerService resource provider by using the az provider register command:
 
-```zhs
+```zsh
 az provider register --namespace Microsoft.ContainerService --subscription "MySubID"
 ```
 
 ## Stop an AKS Cluster
 You can use the az aks stop command to stop a running AKS cluster's nodes and control plane. The following example stops a cluster named myAKSCluster:
 
-```zhs
+```zsh
 az aks stop --name myAKSCluster --resource-group myResourceGroup --subscription "MySubID"
 ```
 
-You can verify when your cluster is stopped by using the az aks show command and confirming the powerState shows as Stopped as on the below output:
+You can verify when your cluster is stopped by using the az aks show command 
+```zsh
+az aks show --name cstaticevent  --resource-group yourResourceGroup --subscription "MySubID" | grep -e 'code'
+```
+
+and confirming the powerState shows as Stopped as on the below output:
 
 ```json
 
 {
 [...]
-  "nodeResourceGroup": "MC_myResourceGroup_myAKSCluster_westus2",
-  "powerState":{
-    "code":"Stopped"
-  },
-  "privateFqdn": null,
-  "provisioningState": "Succeeded",
-  "resourceGroup": "myResourceGroup",
+  "code": "Stopped"
+    "code": "Stopped"
 [...]
 }
 ```
@@ -90,24 +90,34 @@ If you are using Pod Disruption Budgets the stop operation can take longer as th
 You can use the az aks start command to start a stopped AKS cluster's nodes and control plane. The cluster is restarted with the previous control plane state and number of agent nodes.
 The following example starts a cluster named myAKSCluster:
 
-```zhs
+```zsh
 az aks start --name myAKSCluster --resource-group myResourceGroup
-You can verify when your cluster has started by using the az aks show command and confirming the powerState shows Running as on the below output:
 ```
+
+You can verify when your cluster has started by using the az aks show command 
+
+```zsh
+az aks show --name cstaticevent  --resource-group "yourResourceGroup" --subscription "MySubID" | grep -e 'code'
+```
+
+and confirming the powerState shows Running as on the below output:
+
 
 ```json
 
 {
 [...]
-  "nodeResourceGroup": "MC_myResourceGroup_myAKSCluster_westus2",
-  "powerState":{
-    "code":"Running"
-  },
-  "privateFqdn": null,
-  "provisioningState": "Succeeded",
-  "resourceGroup": "myResourceGroup",
+  "code": "Stopped"
+    "code": "Stopped"
 [...]
 }
 ```
 
 If the provisioningState shows Starting that means your cluster hasn't fully started yet.
+
+## Shell Script to automatise this operation
+
+
+## References 
+[Azure reference](https://docs.microsoft.com/en-us/azure/aks/start-stop-cluster)
+
