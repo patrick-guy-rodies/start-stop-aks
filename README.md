@@ -115,6 +115,11 @@ and confirming the powerState shows Running as on the below output:
 
 If the provisioningState shows Starting that means your cluster hasn't fully started yet.
 
+## Result for own cluster
+
+Cost for October: 
+![Azure Cost Analysis](https://github.com/patrick-guy-rodies/start-stop-aks/images/cost_october.png "Azure Cost Analysis")
+
 ## Shell Script to automatise this operation
 
 
