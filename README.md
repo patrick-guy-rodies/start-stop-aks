@@ -118,7 +118,7 @@ If the provisioningState shows Starting that means your cluster hasn't fully sta
 ## Result for own cluster
 
 Cost for October: 
-![Azure Cost Analysis](https://github.com/patrick-guy-rodies/start-stop-aks/images/cost_october.png "Azure Cost Analysis")
+![Azure Cost Analysis](https://github.com/patrick-guy-rodies/start-stop-aks/blob/developement/images/cost_october.png "Azure Cost Analysis")
 
 ## Shell Script to automatise this operation
 
