@@ -122,8 +122,15 @@ Cost for October:
 
 ## Shell Script to automatise this operation
 
-ADDING BASH
-TESTED on https://openfaas.pgr095.tk/ui/ && http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/pod?namespace=openfaas for demo
+The script is a simple bash script to Start, Stop or Show your AKS cluster.
+Argument needed are start|stop|show as first argument and cluster name as second. The script used environment variables for subscription and resource group: $SUB_ID_NP $RG_SANDBOX
+
+```bash
+
+./start_stop_aks.sh stop cstaticevent
+
+```
+
 ## References 
 [Azure reference](https://docs.microsoft.com/en-us/azure/aks/start-stop-cluster)
 
