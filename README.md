@@ -122,7 +122,8 @@ Cost for October:
 
 ## Shell Script to automatise this operation
 
-
+ADDING BASH
+TESTED on https://openfaas.pgr095.tk/ui/ && http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/pod?namespace=openfaas for demo
 ## References 
 [Azure reference](https://docs.microsoft.com/en-us/azure/aks/start-stop-cluster)
 
